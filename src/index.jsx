@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import App from './layout/App';
+import Accueil from './pages/Accueil';
+import APropos from './pages/APropos';
+import Services from './pages/Services';
+import Actualites from './pages/Actualites';
+import Tourisme from './pages/Tourisme';
+import Contact from './pages/Contact';
 import './index.css';
 import * as Sentry from '@sentry/browser';
 
@@ -37,9 +44,22 @@ if (import.meta.env.VITE_PUBLIC_APP_ENV !== 'development') {
   document.head.appendChild(script);
 }
 
+console.log("[DEBUG] Rendering the root component...");
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<Accueil />} />
+          <Route path="a-propos" element={<APropos />} />
+          <Route path="services" element={<Services />} />
+          <Route path="actualites" element={<Actualites />} />
+          <Route path="tourisme" element={<Tourisme />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
